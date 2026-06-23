@@ -1,0 +1,35 @@
+---
+import items from '../../data/items.json';
+import '../../styles/global.css';
+
+export function getStaticPaths() {
+  return items.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const item = Astro.props.item ?? items.find((entry) => entry.slug === Astro.params.slug);
+if (!item) throw new Error(`Guide not found: ${Astro.params.slug}`);
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{item.title}</title>
+    <meta name="description" content={item.metaDescription} />
+  </head>
+  <body>
+    <header class="site-header">
+      <span class="brand-mark">Brand Guides Brasil</span>
+    </header>
+    <main>
+      <article>
+        <p class="meta">Marca: {item.brand} - Dominio: {item.domain} - Linha {item.sourceRow}</p>
+        <Fragment set:html={item.bodyHtml} />
+      </article>
+    </main>
+    <footer>Atualizado em 19 de junho de 2026.</footer>
+  </body>
+</html>

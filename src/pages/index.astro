@@ -1,0 +1,38 @@
+---
+import items from '../data/items.json';
+import { coverSrc } from '../data/cover.js';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brand Guides Brasil - indice de perfis</title>
+    <meta name="description" content={`Indice com ${items.length} paginas de referencia em pt-BR.`} />
+  </head>
+  <body>
+    <header class="site-header">
+      <span class="brand-mark">Brand Guides Brasil</span>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Brand Guides Brasil</h1>
+          <p class="lead">Indice com {items.length} perfis independentes em pt-BR. Cada pagina tem titulo, resumo, corpo editorial e link externo especifico para a marca informada na planilha.</p>
+        </div>
+        <img src={coverSrc} alt="Brand Guides Brasil" />
+      </section>
+      <section class="grid">
+        {items.map((item) => (
+          <article class="card">
+            <a class="brand-link" href={`/guides/${item.slug}/`}>{item.brand}</a>
+            <span class="meta">{item.domain} - {item.keyword}</span>
+            <p>{item.summary}</p>
+          </article>
+        ))}
+      </section>
+    </main>
+    <footer>Atualizado em 19 de junho de 2026.</footer>
+  </body>
+</html>
